@@ -1,4 +1,4 @@
-from models.myqueue import Node
+from utils.myqueue import Node
 
 
 class Array:

@@ -1,6 +1,7 @@
 from models.processo import Processo
-from models.myqueue import Queue
-from models.array import Array
+from utils.myqueue import Queue
+from utils.array import Array
+from models.escalonadores import CPU, IO
 
 
 # clock: int = 0 # conta o tempo global de execução
@@ -57,15 +58,22 @@ from models.array import Array
 # escalonadorCPU.recebagrazadeuspai(processo_novo)
     
 # notas:
-# - colocar um método no escalonador de CPU que verifica se o processo tem tempo 0 necessário, se forr o caso, escreve no arquivo de saída, senão, executa normalmente
-# - get_novo_processo deve ser uma função que analisa as filas de prioridade e pega o próximo, e retorna None se todos os processos estiverem concluídos
-# - puxar os ifs pra cima
+# - colocar um método no escalonador de CPU que verifica se o processo tem tempo 0 necessário e se nao tem tempo de IO, se forr o caso, joga pra fila de finalizados, senão, ve se tem tempo de IO, se tiver, joga p fila de IO
 # - criar uma fila de processos finalizados 
-# - criar estrutura de dados de vetor
+
+
+
+
+
 
 vetor_filas = Array(5)
 for i in range(5):
     vetor_filas[i] = Queue()
+
+fila_IO = Queue()
+
+cpu = CPU()
+unidade_io = IO()
 
 def get_processos():
     with open("dados.txt", "r") as file:
