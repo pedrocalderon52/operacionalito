@@ -1,5 +1,5 @@
 from models.processo import Processo
-from models.queue import Queue
+from models.myqueue import Queue
 
 
 # clock: int = 0 # conta o tempo global de execução
@@ -67,7 +67,7 @@ from models.queue import Queue
 def get_processos():
     with open("dados.txt", "r") as file:
         lines = [line.rstrip() for line in file]
-        processos = Queue() # substituir pela estrutura de dados a ser criada (fila)
+        processos = Queue()
         for line in lines:
             pid, tempo_entrada, tempo_cpu, tempo_IO, prioridade = list(map(int, line.split(";"))) # divide as informações da linha com base no ';'
             processos.enqueue(Processo(pid, tempo_entrada, tempo_cpu, tempo_IO, prioridade))
