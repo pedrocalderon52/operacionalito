@@ -1,19 +1,4 @@
-from myqueue import Queue, Node
-
-class ArrayDeFilas():
-    def __init__(self):
-        self.p1 = Queue()
-        self.p2 = Queue()
-        self.p3 = Queue()
-        self.p4 = Queue()
-        self.p5 = Queue()
-
-
-
-
-print([None] * 7)
-
-
+from models.myqueue import Node
 
 
 class Array:
@@ -89,4 +74,3 @@ class Array:
 
     def __repr__(self):
         return f"Array(size={self.size}, data={self})"
-

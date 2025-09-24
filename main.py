@@ -1,5 +1,6 @@
 from models.processo import Processo
 from models.myqueue import Queue
+from models.array import Array
 
 
 # clock: int = 0 # conta o tempo global de execução
@@ -62,7 +63,9 @@ from models.myqueue import Queue
 # - criar uma fila de processos finalizados 
 # - criar estrutura de dados de vetor
 
-
+vetor_filas = Array(5)
+for i in range(5):
+    vetor_filas[i] = Queue()
 
 def get_processos():
     with open("dados.txt", "r") as file:
@@ -75,7 +78,10 @@ def get_processos():
 
 
 processos = get_processos()
-print(processos)
+while processos.first is not None:
+    p = processos.dequeue()
+    vetor_filas[p.valor.prioridade - 1].enqueue(p.valor)
+
 
 
 

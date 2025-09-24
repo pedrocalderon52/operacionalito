@@ -6,8 +6,6 @@ class Processo():
         self.tempo_IO = tempo_IO
         self.prioridade = prioridade
 
-
-
         
     def __str__(self):
         "Mostra o output do comando print(processo) ou str(processo)"
