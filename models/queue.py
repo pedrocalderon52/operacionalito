@@ -44,9 +44,6 @@ class Queue():
         return removed
     
 
-                
-
-
 # Objeto IO, Objeto CPU, Fila de Entrada, Fila pra p1, p2, p3, p4, p5
 
 # processo vai passar pela fila de entrada e vai para a fila de prioridade relacionada a ele. Após isso, o escalonador de processos pegaria o processo de uma das filas e executaria 3 ciclos de clock, e, se tivesse tempo de IO a ser tratado, passaria para a fila de IO (apenas FIFO). Os itens dessa fila estariam sujeitos à administração do escalonador de IO, que ao executar o IO, voltaria para a fila de prioridades

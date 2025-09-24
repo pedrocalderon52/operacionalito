@@ -7,6 +7,7 @@ class Processo():
         self.prioridade = prioridade
 
 
+
         
     def __str__(self):
         "Mostra o output do comando print(processo) ou str(processo)"
@@ -15,3 +16,5 @@ class Processo():
     def __repr__(self):
         "Mostra o output do comando print(get_processos()) ou repr(processo)"
         return f"PID: {self.pid}\nTempo entrada (ciclos de clock): {self.tempo_entrada}\nTempo de I/O (ciclos de clock): {self.tempo_IO}\nTempo de CPU (ciclos de clock): {self.tempo_cpu}\nPrioridade: {self.prioridade}"
+
+
