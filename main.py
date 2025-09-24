@@ -77,12 +77,26 @@ def get_processos():
         return processos
 
 
+def devolver_processo(processo: Processo):
+    vetor_filas[processo.prioridade - 1].enqueue(processo)
+
+
+def pegar_processo() -> Processo:
+    for i in range(5):
+        processo = vetor_filas[i].dequeue()
+        if processo is not None:
+            return processo.valor # retorna o processo
+    print("Fila vazia")
+    return None # não achou nó em nenhuma fila
+        
+        
+
 processos = get_processos()
+
+
 while processos.first is not None:
     p = processos.dequeue()
-    vetor_filas[p.valor.prioridade - 1].enqueue(p.valor)
-
-
+    vetor_filas[p.valor.prioridade - 1].enqueue(p.valor) # pega a prioridade de cada processo e aloca na fila certa
 
 
 
