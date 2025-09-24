@@ -10,10 +10,22 @@ class Node():
 
 class Queue():
     def __init__(self):
-        self.first = None
+        self.first: Node = None
+        self.cheia: bool = False
 
 
     def __str__(self):
+        if self.first is None:
+            return "Fila vazia"
+        aux = self.first
+        txt = ""
+        while aux is not None:
+            txt += str(aux.valor) + " -> "
+            aux = aux.next
+        return txt.rstrip(" -> ") # tira a seta extra
+    
+
+    def __repr__(self):
         if self.first is None:
             return "Fila vazia"
         aux = self.first
@@ -33,6 +45,7 @@ class Queue():
             while aux.next is not None:
                 aux = aux.next
             aux.next = node
+        self.cheia = True
 
 
     def dequeue(self):
@@ -41,6 +54,9 @@ class Queue():
         removed = self.first
         self.first = self.first.next
         removed.next = None
+
+        if self.first is None:
+            self.cheia = False
         return removed
     
 

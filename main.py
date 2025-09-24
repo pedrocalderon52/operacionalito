@@ -4,9 +4,9 @@ from utils.array import Array
 from models.escalonadores import CPU, IO
 
 
-# clock: int = 0 # conta o tempo global de execução
-# clock_CPU: int = 0 # conta o tempo global de execução CPU
-# clock_IO: int = 0 # conta o tempo global de execução IO
+clock: int = 0 # conta o tempo global de execução
+clock_CPU: int = 0 # conta o tempo global de execução CPU
+clock_IO: int = 0 # conta o tempo global de execução IO
 
 
 # =====================================================================
@@ -16,50 +16,8 @@ from models.escalonadores import CPU, IO
 
 
 
-
-
-# if clock_CPU % 3 == 0:
-#     aux = escalonadorCPU.pop_processo()
-#     processo_novo = get_novo_processo()
-#     while processo_novo.tempo_CPU && processo_novo.tempo_IO: # ve se da certo aí hein meo
-#         processo_novo = get_novo_processo()
-
-
-#     if aux.tempo_IO > 0:
-#         fila_IO.enqueue(aux)
-#     else:
-#         x = aux.get_prioridade_processo()
-#         fila px.enqueue(aux)
-
-#     if processo_novo is not None: # se ele achou um processo
-#         escalonadorCPU.recebagrazadeuspai(processo_novo)
-
-
-
-# if clock_IO % 6 == 0:
-#     aux = escalonadorIO.pop_processo()
-#     processo_novo = fila_IO.dequeue()
-#     x = aux.get_prioridade_processo()
-#     fila px.enqueue(aux)
-
-#     if processo_novo is not None:
-#         escalonadorIO.recebagrazadeuspai(processo_novo)
-
-# escalonadorCPU.realizar_operacao()
-# escalonadorIO.realizar_operacao()
-
-# clock += 1
-# if tem_processo na cpu:
-#     clock_CPU += 1
-# if tem_processo na IO:
-#     clock_IO += 1
-
-# procuradoidoooo
-# escalonadorCPU.recebagrazadeuspai(processo_novo)
     
-# notas:
 # - colocar um método no escalonador de CPU que verifica se o processo tem tempo 0 necessário e se nao tem tempo de IO, se forr o caso, joga pra fila de finalizados, senão, ve se tem tempo de IO, se tiver, joga p fila de IO
-# - criar uma fila de processos finalizados 
 
 
 
@@ -70,7 +28,11 @@ vetor_filas = Array(5)
 for i in range(5):
     vetor_filas[i] = Queue()
 
+
+
+
 fila_IO = Queue()
+fila_finalizados = Queue()
 
 cpu = CPU()
 unidade_io = IO()
@@ -94,12 +56,24 @@ def pegar_processo() -> Processo:
         processo = vetor_filas[i].dequeue()
         if processo is not None:
             return processo.valor # retorna o processo
-    print("Fila vazia")
+    #print("Fila vazia")
     return None # não achou nó em nenhuma fila
         
         
 
 processos = get_processos()
+
+print((vetor_filas))
+print(bool(vetor_filas))
+
+def verificar_elementos_filas():
+    """retorna true se tem pelo menos um elemento na fila de cpu"""
+    total = False
+    for i in range(5):
+        total = total or vetor_filas[i].cheia
+    print(total)
+
+
 
 
 while processos.first is not None:
@@ -108,3 +82,52 @@ while processos.first is not None:
 
 
 
+
+
+
+
+while verificar_elementos_filas():
+    if clock_CPU % 3 == 0:
+        aux = cpu.pop_processo()
+        processo_novo = pegar_processo()
+        if aux is not None:
+            if not cpu.verificar_tempo_cpu_processo and not unidade_io.verificar_tempo_IO_processo:
+                fila_finalizados.enqueue(aux)
+            elif unidade_io.verificar_tempo_IO_processo(aux):
+                fila_IO.enqueue(aux) 
+            else:
+                devolver_processo(aux)
+
+
+
+        if processo_novo is not None: # se ele achou um processo
+            cpu.add_processo(processo_novo)
+
+
+
+    if clock_IO % 6 == 0:
+        aux = unidade_io.pop_processo()
+        processo_novo = fila_IO.dequeue()
+        if aux is not None:
+            if fila_IO.first is None:
+                pass  
+            else: 
+                devolver_processo()
+
+        if processo_novo is not None:
+            unidade_io.add_processo(processo_novo)
+
+    cpu.realizar_operacao()
+    unidade_io.realizar_operacao()
+
+    clock += 1
+    if cpu.processo_atual is not None:
+        clock_CPU += 1
+    if unidade_io.processo_atual is not None:
+        clock_IO += 1
+
+    processo_novo = pegar_processo()
+    cpu.add_processo(processo_novo)
+
+
+print("acabou com tempo de clock", clock)

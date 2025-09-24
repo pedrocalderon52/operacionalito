@@ -74,3 +74,10 @@ class Array:
 
     def __repr__(self):
         return f"Array(size={self.size}, data={self})"
+    
+
+    def __iter__(self):
+        current = self.data
+        while current is not None:
+            yield current.valor
+            current = current.next
