@@ -11,7 +11,7 @@ class Node():
 class Queue():
     def __init__(self):
         self.first: Node = None
-        self.cheia: bool = False
+        self.cheia: bool = True
 
 
     def __str__(self):

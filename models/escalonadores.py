@@ -1,4 +1,5 @@
 from models.processo import Processo
+from utils.myqueue import Node
 
 class CPU():
     def __init__(self):
@@ -10,6 +11,11 @@ class CPU():
     
 
     def realizar_operacao(self):
+        if self.processo_atual is None:
+            return
+        if isinstance(self.processo_atual, Node):
+            self.processo_atual = self.processo_atual.valor
+
         if self.processo_atual.tempo_cpu - 1 < 0:
             pass
         else:
@@ -25,8 +31,6 @@ class CPU():
     def add_processo(self, processo: Processo):
         if self.processo_atual is None:
             self.processo_atual = processo
-        else:
-            print("erro muito cabuloso acontecendo")
 
 
     def __str__(self):
@@ -44,6 +48,11 @@ class IO():
     
 
     def realizar_operacao(self):
+        if self.processo_atual is None:
+            return
+        if isinstance(self.processo_atual, Node):
+            self.processo_atual = self.processo_atual.valor
+
         if self.processo_atual.tempo_IO - 1 < 0:
             pass
         else:
@@ -59,8 +68,6 @@ class IO():
     def add_processo(self, processo: Processo):
         if self.processo_atual is None:
             self.processo_atual = processo
-        else:
-            print("erro muito cabuloso acontecendo")
 
 
     def __str__(self):

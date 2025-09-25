@@ -13,6 +13,7 @@ class Processo():
 
     def __repr__(self):
         "Mostra o output do comando print(get_processos()) ou repr(processo)"
+        return str(self.pid)
         return f"\nPID: {self.pid}\nTempo entrada (ciclos de clock): {self.tempo_entrada}\nTempo de I/O (ciclos de clock): {self.tempo_IO}\nTempo de CPU (ciclos de clock): {self.tempo_cpu}\nPrioridade: {self.prioridade}\n"
 
 
