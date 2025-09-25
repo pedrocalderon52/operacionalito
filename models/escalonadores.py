@@ -55,8 +55,11 @@ class IO():
 
         if self.processo_atual.tempo_IO - 1 < 0:
             pass
+        
         else:
             self.processo_atual.tempo_IO -= 1
+        print(f"[DEBUG] IO rodando: {self.processo_atual.pid}, tempo_IO={self.processo_atual.tempo_IO}")
+
 
 
     def pop_processo(self) -> Processo:
